@@ -27,9 +27,12 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(System.DefaultWorkingDirectory)/target/*.jar'
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/target'
       ArtifactName: 'drop'
       publishLocation: 'Container'
+      targetPath: '$(System.DefaultWorkingDirectory)/target'
+      clean: true
+      artifactType: 'Container'
 
 - job: Deploy
   displayName: 'Deploy to Azure Web App'
