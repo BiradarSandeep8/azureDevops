@@ -27,3 +27,10 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Pay-As-You-Go(2)(3f9425f7-b0f9-40b7-9c23-beca0c6a8610)'
+    appType: 'webApp'
+    WebAppName: 'azuredb2-web-app'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
