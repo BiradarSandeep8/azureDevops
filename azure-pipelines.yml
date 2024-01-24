@@ -29,7 +29,7 @@ jobs:
 
     - task: CopyFiles@2
       inputs:
-        Contents: '**/*.jar'
+        Contents: '**/target/*.jar'
         TargetFolder: '$(build.artifactstagingdirectory)/Artifact'
 
     - task: PublishBuildArtifacts@1
@@ -54,6 +54,6 @@ jobs:
         azureSubscription: 'Pay-As-You-Go (3f9425f7-b0f9-40b7-9c23-beca0c6a8610)'
         appType: 'webAppLinux'
         WebAppName: 'azure-web-appB2'
-        packageForLinux: '$(System.ArtifactsDirectory)/Artifact/**/*.jar'
+        packageForLinux: '$(System.ArtifactsDirectory)/Artifact/insure-me-1.0.jar'
         RuntimeStack: 'Java 21.0.2'
         StartupCommand: 'java -jar $(System.ArtifactsDirectory)/Artifact/insure-me-1.0.jar'
