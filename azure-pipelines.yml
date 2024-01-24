@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'windows-latest'
+  name: WindowVm
 
 jobs:
 - job: Build
@@ -35,7 +35,7 @@ jobs:
   displayName: 'Deploy to Azure Web App'
   dependsOn: Build
   pool:
-    vmImage: 'windows-latest'
+    name: WindowVm
   steps:
   - task: AzureRmWebAppDeployment@4
     inputs:
