@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  name: WindowVm
 
 steps:
 - task: Maven@3
