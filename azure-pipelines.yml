@@ -34,4 +34,6 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(Build.ArtifactStaging
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'Artifact'
+      publishLocation: 'Container'
