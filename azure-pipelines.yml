@@ -34,6 +34,6 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(System.DefaultWorkingDirectory)/target/*.jar'
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/target/insure-me-1.0.jar.original'
       ArtifactName: 'drop'
       publishLocation: 'Container'
