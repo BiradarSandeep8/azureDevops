@@ -37,24 +37,3 @@ jobs:
       PathtoPublish: '$(System.DefaultWorkingDirectory)/target/insure-me-1.0.jar.original'
       ArtifactName: 'drop'
       publishLocation: 'Container'
-
-- job: Deploy
-  displayName: 'Deploy to Azure Web App'
-  dependsOn: Build
-  pool:
-    vmImage: 'windows-latest'
-  steps:
-  - task: UseDotNet@2
-    inputs:
-      packageType: 'sdk'
-      version: '3.x'
-      installationPath: $(Agent.ToolsDirectory)/dotnet
-    displayName: 'Use .NET Core SDK'
-
-  - task: AzureRmWebAppDeployment@4
-    inputs:
-      ConnectionType: 'AzureRM'
-      azureSubscription: 'Pay-As-You-Go(3f9425f7-b0f9-40b7-9c23-beca0c6a8610)'
-      appType: 'webApp'
-      WebAppName: 'azuredb2-web-app'
-      packageForLinux: '$(System.DefaultWorkingDirectory)/drop/insure-me-1.0.jar.original'
