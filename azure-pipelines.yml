@@ -41,6 +41,8 @@ jobs:
 - job: Deploy
   displayName: 'Deploy Job'
   dependsOn: Build
+  pool:
+    name: WindowVm
   steps:
   - task: AzureRmWebAppDeployment@4
     inputs:
@@ -48,6 +50,6 @@ jobs:
       azureSubscription: 'Pay-As-You-Go (3f9425f7-b0f9-40b7-9c23-beca0c6a8610)'
       appType: 'webAppLinux'
       WebAppName: 'azure-web-appB2'
-      packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.jar'
+      packageForLinux: '$(System.DefaultWorkingDirectory)/target/*.jar'
       RuntimeStack: 'Java 21.0.2'
       StartupCommand: 'java -jar insure-me-1.0.jar'
