@@ -1,10 +1,4 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
-- main
+# Your existing YAML content...
 
 pool:
   name: WindowVm
@@ -17,20 +11,28 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
 - task: Maven@4
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'install'
+    goals: 'clean package'
     publishJUnitResults: false
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(System.DefaultWorkingDirectory)/path/to/your/maven/project/target'  # Adjust the path to your Maven build output directory
+    artifactName: 'drop'
+    publishLocation: 'Container'
+
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Pay-As-You-Go(2)(3f9425f7-b0f9-40b7-9c23-beca0c6a8610)'
     appType: 'webApp'
     WebAppName: 'azuredb2-web-app'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/drop/**/*.zip'
