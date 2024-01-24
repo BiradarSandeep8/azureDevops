@@ -50,3 +50,4 @@ jobs:
         repository: 'DB2-DockerImage'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
+        buildContext: '$(build.artifactstagingdirectory)/Artifact'
