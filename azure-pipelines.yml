@@ -16,11 +16,6 @@ jobs:
         echo See https://aka.ms/yaml
       displayName: 'Run a multi-line script'
 
-    - task: UseJavaVersion@1
-      inputs:
-        versionSpec: '11'
-        addToPath: true
-
     - task: Maven@3
       inputs:
         mavenPomFile: 'pom.xml'
@@ -50,11 +45,10 @@ jobs:
     name: WindowVm
   steps:
     - task: AzureWebApp@1
-      displayName: 'Azure Web App Deploy: azure-web-appB2'
       inputs:
         azureSubscription: 'Pay-As-You-Go (3f9425f7-b0f9-40b7-9c23-beca0c6a8610)'
         appType: 'webAppLinux'
         appName: 'azure-web-appB2'
-        package: '$(Pipeline.Workspace)/drop/Artifact/**/*.jar'
-        RuntimeStack: 'Java 11'
-        StartupCommand: 'java -jar insure-me-1.0.jar'
+        package: '$(System.DefaultWorkingDirectory)/**/*.jar'
+        runtimeStack: 'TOMCAT|9.0-java11'
+        startupCommand: 'java -jar $(System.DefaultWorkingDirectory)/Artifact/your_actual_jar_file.jar'
