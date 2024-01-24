@@ -1,13 +1,8 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
 pool:
-  name: WindowVm
+  vmImage: 'windows-latest'
 
 jobs:
 - job: Build
@@ -21,19 +16,31 @@ jobs:
       echo See https://aka.ms/yaml
     displayName: 'Run a multi-line script'
 
-  - task: Maven@4
+  - task: Maven@3
     inputs:
       mavenPomFile: 'pom.xml'
-      goals: 'install'
-      publishJUnitResults: false
+      mavenOptions: '-Xmx3072m'
       javaHomeOption: 'JDKVersion'
-      mavenVersionOption: 'Default'
-      mavenAuthenticateFeed: false
-      effectivePomSkip: false
-      sonarQubeRunAnalysis: false
+      jdkVersionOption: '21.0.2'
+      jdkArchitectureOption: 'x64'
+      goals: 'clean package'
 
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: '$(System.DefaultWorkingDirectory)/target/insure-me-1.0.jar.original'
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/target/*.jar'
       ArtifactName: 'drop'
       publishLocation: 'Container'
+
+- job: Deploy
+  displayName: 'Deploy to Azure Web App'
+  dependsOn: Build
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - task: AzureRmWebAppDeployment@4
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: 'Pay-As-You-Go(3f9425f7-b0f9-40b7-9c23-beca0c6a8610)'
+      appType: 'webApp'
+      WebAppName: 'Azuredb2'
+      package: '$(System.DefaultWorkingDirectory)/target/*.jar'
