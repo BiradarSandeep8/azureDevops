@@ -7,7 +7,6 @@ trigger:
 - main
 
 variables:
-
   # Azure Resource Manager connection created during pipeline creation
   azureSubscription: '123faeba-16c9-44f7-96d6-0d0a509a704d'
 
@@ -19,7 +18,7 @@ variables:
 
   # Agent VM image name
   pool:
-      vmImage: 'windows-latest'
+    vmImage: 'windows-latest'
 
 stages:
 - stage: Build
@@ -29,7 +28,6 @@ stages:
     displayName: Maven Package and Publish Artifacts
     pool:
       vmImage: 'windows-latest'
-
     steps:
     - task: Maven@3
       displayName: 'Maven Package'
