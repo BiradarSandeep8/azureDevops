@@ -16,9 +16,9 @@ variables:
   # Environment name
   environmentName: 'azure-web-appB2'
 
-  # Agent VM image name
-  pool:
-    vmImage: 'windows-latest'
+# Agent VM image name
+pool:
+  vmImage: 'windows-latest'
 
 stages:
 - stage: Build
