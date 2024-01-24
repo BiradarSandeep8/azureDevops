@@ -49,5 +49,5 @@ jobs:
         containerRegistry: 'AzureDB2Acr'
         repository: 'DB2-DockerImage'
         command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
-        buildContext: '$(build.artifactstagingdirectory)/Artifact'
+        Dockerfile: '**/Dockerfile'  # Adjust if the Dockerfile is in a different directory
+        buildContext: '$(build.artifactstagingdirectory)'  # Adjust if the Artifact directory is at a different level
