@@ -37,17 +37,3 @@ jobs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'Artifact'
         publishLocation: 'Container'
-
-- job: DockerBuild
-  displayName: 'Docker Build Job'
-  dependsOn: Build
-  pool:
-    name: WindowVm
-  steps:
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'AzureDB2Acr'
-        repository: 'DB2-DockerImage'
-        command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'  # Adjust if the Dockerfile is in a different directory
-        buildContext: '$(build.artifactstagingdirectory)'  # Adjust if the Artifact directory is at a different level
