@@ -37,3 +37,10 @@ jobs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'Artifact'
         publishLocation: 'Container'
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'AzureDB2Acr'
+        repository: 'AzureDB2-image'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
