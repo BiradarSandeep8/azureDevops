@@ -31,7 +31,7 @@ steps:
     publishLocation: 'Container'
 - task: Docker@2
   inputs:
-    containerRegistry: 'AzureDB2Acr'
-    repository: 'abcd'
+    containerRegistry: 'newServconcn'
+    repository: 'newimage'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
