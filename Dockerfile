@@ -2,6 +2,7 @@ FROM openjdk:17-alpine
 
 WORKDIR /app
 
-COPY Artifact/*.jar app.jar
+# Copy all JAR files from the build context to the container
+COPY $(System.DefaultWorkingDirectory)/**/*.jar app.jar
 
 CMD ["java", "-jar", "app.jar"]
